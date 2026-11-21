@@ -48,10 +48,11 @@ class Maze:
 class MazeVisualizer:
     """Visualize maze with cartoon mouse and cheese"""
     settings = {
-        'wall_color':"#313338",
-        'wall_edge':'#1a202c',
+        'wall_color':"#22406b",
+        'wall_edge':'#41618f',
         'wall_alpha':0.9,
-        'cell_base':0.95,
+        'cell_colors':['#a9bfd3','#9fb6cc','#b3c6d8','#a4bacd'],
+        'cell_edge':'#d6e2ee',
         'cell_alpha':0.8,
         'mouse_color':'#8a8a8a',
         'mouse_ear':'#a8a8a8',
@@ -72,15 +73,15 @@ class MazeVisualizer:
         self.current_frame = 0
 
     def _draw_cell(self, x, y, is_wall):
-        face = self.settings['wall_color'] if is_wall else plt.cm.Greys(self.settings['cell_base'] - (x+y*2)%4*0.02)
-        edge = self.settings['wall_edge'] if is_wall else '#e2e8f0'
+        face = self.settings['wall_color'] if is_wall else self.settings['cell_colors'][(x+y*2)%4]
+        edge = self.settings['wall_edge'] if is_wall else self.settings['cell_edge']
         hatch = '////' if is_wall else None
         alpha = self.settings['wall_alpha'] if is_wall else self.settings['cell_alpha']
         cell = patches.FancyBboxPatch((x,y),1,1, boxstyle="round,pad=0.02,rounding_size=0.1",
                                       facecolor=face, edgecolor=edge, linewidth=1.5, alpha=alpha, hatch=hatch)
         self.ax.add_patch(cell)
         if is_wall:
-            self.ax.add_patch(patches.Circle((x+0.5,y+0.5),0.1,facecolor='#4a5568',alpha=0.3))
+            self.ax.add_patch(patches.Circle((x+0.5,y+0.5),0.1,facecolor='#54719e',alpha=0.3))
 
     def _draw_mouse(self, x, y, direction=(1,0)):
         if self.mouse_artist:
