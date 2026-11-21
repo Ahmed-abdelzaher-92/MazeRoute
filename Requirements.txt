@@ -1,4 +1,4 @@
-# Maze Pathfinding Algorithms Visualizer
+# MazeRoute Algorithms Visualizer
 # Requirements file
 
 # Core visualization library
